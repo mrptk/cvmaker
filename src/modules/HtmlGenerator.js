@@ -9,28 +9,26 @@ class HTMLGenerator {
     }
 
     generate() {
-        const dom = new JSDOM('<!DOCTYPE html><html><head><title>Generated HTML</title><style>' +
-            '@page {' +
-            '  size: A4;' +
-            '  margin: 0;' +
-            '}' +
-            'body {' +
-            '  width: 210mm;' +
-            '  height: 297mm;' +
-            '  margin: 0;' +
-            '  padding: 20px;' +
-            '  box-sizing: border-box;' +
-            '  font-family: Arial, sans-serif;' +
-            '  color: #333;' +
-            '}' +
-            '</style></head><body></body></html>'),
+        const dom = new JSDOM('<!DOCTYPE html><html lang=""><head><title>Generated HTML</title><style>' +
+                '@page {' +
+                '  size: A4;' +
+                '  margin: 0;' +
+                '}' +
+                'body {' +
+                '  width: 210mm;' +
+                '  height: 297mm;' +
+                '  margin: 0;' +
+                '  padding: 20px;' +
+                '  box-sizing: border-box;' +
+                '  font-family: Arial, sans-serif;' +
+                '  color: #333;' +
+                '}' +
+                '</style></head><body></body></html>'),
             document = dom.window.document;
 
-        // Create the element
         const element = document.createElement(this.tag);
         element.textContent = this.content;
 
-        // Apply styles as inline CSS
         Object.entries(this.getDefaultStyles()).forEach(([key, value]) => {
             element.style[key] = value;
         });
@@ -54,13 +52,16 @@ class HTMLGenerator {
         };
     }
 
-    saveToFile(filename) {
+    async saveToFile(filename) {
         const htmlContent = this.generate();
-        fs.writeFileSync(filename, htmlContent, 'utf8');
-        console.log(`HTML saved to ${filename}`);
+        try {
+            fs.writeFileSync(filename, htmlContent, 'utf8');
+            console.log(`HTML saved to ${filename}`);
+        } catch (error) {
+            console.error('Error saving HTML to file:', error);
+            throw error;
+        }
     }
 }
 
-// Example usage
-const generator = new HTMLGenerator('div', 'Hey, brother', { backgroundColor: 'lightblue', color: 'white' });
-generator.saveToFile('../../target/output.html');
+module.exports = HTMLGenerator;
