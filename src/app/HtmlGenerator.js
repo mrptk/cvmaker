@@ -2,7 +2,7 @@ const { JSDOM } = require('jsdom');
 const fs = require('fs');
 
 class HTMLGenerator {
-    constructor(tag = 'div', content = 'Hello, World!', styles = {}) {
+    constructor(tag = 'div', content = 'Hello, world!', styles = {}) {
         this.tag = tag;
         this.content = content;
         this.styles = styles;
@@ -62,5 +62,5 @@ class HTMLGenerator {
 }
 
 // Example usage
-const generator = new HTMLGenerator('div', 'Custom Styled Box', { backgroundColor: 'lightblue', color: 'white' });
+const generator = new HTMLGenerator('div', 'Hey, brother', { backgroundColor: 'lightblue', color: 'white' });
 generator.saveToFile('../../target/output.html');
