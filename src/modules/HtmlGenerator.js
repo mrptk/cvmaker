@@ -2,58 +2,44 @@ const { JSDOM } = require('jsdom');
 const fs = require('fs');
 
 class HTMLGenerator {
-    constructor(tag = 'div', content = 'Hello, world!', styles = {}) {
-        this.tag = tag;
-        this.content = content;
-        this.styles = styles;
+    constructor() {
+        this.#dom = new JSDOM('<!DOCTYPE html><html lang=""><head><title>Generated HTML</title><style>' +
+            '@page {' +
+            '  size: A4;' +
+            '}' +
+            'body {' +
+            '  width: 210mm;' +
+            '  height: 297mm;' +
+            '  margin: 0;' +
+            '  padding: 20px;' +
+            '  box-sizing: border-box;' +
+            '  font-family: Arial, sans-serif;' +
+            '  color: #333;' +
+            '}' +
+            '</style></head><body></body></html>');
+        this.#document = this.#dom.window.document;
     }
 
-    generate() {
-        const dom = new JSDOM('<!DOCTYPE html><html lang=""><head><title>Generated HTML</title><style>' +
-                '@page {' +
-                '  size: A4;' +
-                '  margin: 0;' +
-                '}' +
-                'body {' +
-                '  width: 210mm;' +
-                '  height: 297mm;' +
-                '  margin: 0;' +
-                '  padding: 20px;' +
-                '  box-sizing: border-box;' +
-                '  font-family: Arial, sans-serif;' +
-                '  color: #333;' +
-                '}' +
-                '</style></head><body></body></html>'),
-            document = dom.window.document;
+    #dom;
+    #document;
 
-        const element = document.createElement(this.tag);
-        element.textContent = this.content;
+    append(newElement) {
+        this.#document.body.appendChild(newElement);
+    };
 
-        Object.entries(this.getDefaultStyles()).forEach(([key, value]) => {
+    createElement(newElement) {
+        const element = this.#document.createElement(newElement.tag);
+        element.textContent = newElement.content;
+
+        for (const [key, value] of Object.entries(newElement.styles)) {
             element.style[key] = value;
-        });
-        Object.entries(this.styles).forEach(([key, value]) => {
-            element.style[key] = value;
-        });
+        }
 
-        document.body.appendChild(element);
-
-        return dom.serialize();
+        return element;
     }
 
-    getDefaultStyles() {
-        return {
-            padding: '10px',
-            backgroundColor: '#f0f0f0',
-            border: '1px solid #ccc',
-            borderRadius: '5px',
-            fontFamily: 'Arial, sans-serif',
-            color: '#333',
-        };
-    }
-
-    async saveToFile(filename) {
-        const htmlContent = this.generate();
+    saveToFile(filename) {
+        const htmlContent = this.#dom.serialize();
         try {
             fs.writeFileSync(filename, htmlContent, 'utf8');
             console.log(`HTML saved to ${filename}`);
