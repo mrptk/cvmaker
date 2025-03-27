@@ -1,12 +1,6 @@
 const puppeteer = require('puppeteer');
 const fs = require('fs');
 
-/**
- * Function to generate PDF from an HTML file
- * @param {string} htmlFilePath - The path to the HTML file to convert
- * @param {string} outputPdfPath - The path where the output PDF will be saved
- * @returns {Promise<void>}
- */
 async function generatePdf(htmlFilePath, outputPdfPath) {
     try {
         const browser = await puppeteer.launch();

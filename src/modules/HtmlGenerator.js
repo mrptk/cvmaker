@@ -15,13 +15,8 @@ class HTMLGenerator {
                 '  margin: 0;' +
                 '}' +
                 'body {' +
-                '  width: 210mm;' +
-                '  height: 297mm;' +
                 '  margin: 0;' +
-                '  padding: 20px;' +
-                '  box-sizing: border-box;' +
-                '  font-family: Arial, sans-serif;' +
-                '  color: #333;' +
+                '  color: white;' +
                 '}' +
                 '</style></head><body></body></html>'),
             document = dom.window.document;
