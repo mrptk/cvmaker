@@ -1,14 +1,18 @@
 const generatePdf = require('../modules/PdfGenerator');
-const HTMLGenerator = require('../modules/HtmlGenerator.js');
 const {unlinkSync} = require("node:fs");
 
-const generator = new HTMLGenerator('div', 'Hey, brother', { backgroundColor: 'lightblue', color: 'white' });
+/**
+ * Here set your model
+ * @type {HTMLGenerator|{}}
+ */
+const HTMLGenerator = require('../models/sampleCV.js');
 
-generator.saveToFile('output.html')
-    .then(async () => {
-        await generatePdf('output.html', '../../target/output.pdf');
-    }).then(async () => {
-        unlinkSync('output.html');
-    }).catch((error) => {
-        console.error('An error occurred:', error);
-    });
+
+HTMLGenerator.saveToFile('output.html');
+(async () => {
+    await generatePdf('output.html', '../../target/output.pdf');
+})().then(() => {
+    unlinkSync('output.html');
+}).catch((error) => {
+    console.error('An error occurred:', error);
+});
