@@ -1,5 +1,5 @@
 const generatePdf = require('../modules/PdfGenerator');
-const {unlinkSync} = require("node:fs");
+const {unlinkSync, existsSync} = require("node:fs");
 
 /**
  * Here set your model
@@ -11,8 +11,10 @@ const HTMLGenerator = require('../models/sampleCV.js');
 HTMLGenerator.saveToFile('output.html');
 (async () => {
     await generatePdf('output.html', '../../target/output.pdf');
-})().then(() => {
-    unlinkSync('output.html');
-}).catch((error) => {
+})().catch((error) => {
     console.error('An error occurred:', error);
+}).finally(() => {
+    if (existsSync('output.html')) {
+        unlinkSync('output.html');
+    }
 });
