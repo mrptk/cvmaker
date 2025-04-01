@@ -1,4 +1,5 @@
-const generatePdf = require('../modules/PdfGenerator');
+const generatePdfPuppeteer = require('../modules/PuppeteerPdfGenerator');
+const generatePdfPlaywright = require('../modules/PlaywrightPdfGenerator');
 const {unlinkSync, existsSync} = require("node:fs");
 
 /**
@@ -10,7 +11,8 @@ const HTMLGenerator = require('../models/sampleCV.js');
 
 HTMLGenerator.saveToFile('output.html');
 (async () => {
-    await generatePdf('output.html', '../../target/output.pdf');
+    await generatePdfPlaywright('../app/output.html', '../../target/output_playwright.pdf');
+    await generatePdfPuppeteer('output.html', '../../target/output_puppeteer.pdf');
 })().catch((error) => {
     console.error('An error occurred:', error);
 }).finally(() => {
