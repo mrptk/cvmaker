@@ -3,20 +3,36 @@ const fs = require('fs');
 
 class HTMLGenerator {
     constructor() {
-        this.#dom = new JSDOM('<!DOCTYPE html><html lang=""><head><title>Generated HTML</title><style>' +
-            '@page {' +
-            '  size: A4;' +
-            '}' +
-            'body {' +
-            '  width: 210mm;' +
-            '  height: 297mm;' +
-            '  margin: 0;' +
-            '  padding: 20px;' +
-            '  box-sizing: border-box;' +
-            '  font-family: Arial, sans-serif;' +
-            '  color: #333;' +
-            '}' +
-            '</style></head><body></body></html>');
+        this.#dom = new JSDOM(
+            '<!DOCTYPE html>' +
+            '<html lang="en">' +
+            '<head>' +
+            '    <title>Generated HTML</title>' +
+            '    <style>' +
+            '        * {' +
+            '            margin: 0;' +
+            '            padding: 0;' +
+            '            box-sizing: border-box;' +
+            '        }' +
+            '        html, body {' +
+            '            width: 100%;' +
+            '            height: 100%;' +
+            '            display: flex;' +
+            '            flex-direction: row;' +
+            '            align-items: flex-start;' +
+            '            justify-content: flex-start;' +
+            '            flex-wrap: wrap;' +
+            '            font-family: Arial, sans-serif;' +
+            '            background-color: #f8f9fa;' +
+            '            padding: 0;' +
+            '            margin: 0;' +
+            '            overflow: hidden;' +
+            '        }' +
+            '    </style>' +
+            '</head>' +
+            '<body></body>' +
+            '</html>'
+        );
         this.#document = this.#dom.window.document;
     }
 
