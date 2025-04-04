@@ -47,7 +47,7 @@ class HTMLGenerator {
         const element = this.#document.createElement(newElement.tag);
         element.textContent = newElement.content;
 
-        for (const [key, value] of Object.entries(newElement.styles)) {
+        if (newElement.styles) for (const [key, value] of Object.entries(newElement.styles)) {
             element.style[key] = value;
         }
 

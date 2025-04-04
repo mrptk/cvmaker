@@ -27,27 +27,29 @@ const containerRight = generator.createElement({
         height: '100vh',
         width: '35%',
         backgroundColor: '#253847',
-        boxSizing: 'border-box'
+        boxSizing: 'border-box',
+        padding: '20px'
     }
 });
 
 const heading = generator.createElement({
     tag: 'h1',
-    content: 'John Doe',
+    content: 'JOHN DOE',
     styles: {
         marginBottom: '10px',
         fontSize: '2rem',
-        fontFamily: 'Arial, sans-serif'
+        fontFamily: 'Georgia'
     }
 });
 
 const headingRight = generator.createElement({
     tag: 'h1',
-    content: 'John Doe',
+    content: 'JOHN DOE',
     styles: {
         marginBottom: '10px',
         fontSize: '2rem',
-        fontFamily: 'Arial, sans-serif'
+        fontFamily: 'Georgia',
+        color: 'white'
     }
 });
 
@@ -56,13 +58,21 @@ const description = generator.createElement({
     content: 'Software Engineer | Web Developer | Tech Enthusiast',
     styles: {
         fontSize: '1.2rem',
-        color: '#555'
+        color: '#555',
+        fontFamily: 'Montserrat, sans-serif'
     }
 });
+
+const image = generator.createElement({
+    tag: 'img'
+});
+
+image.src = ("C:\\Users\\ptkma\\WebstormProjects\\cvmaker\\resources\\circular_image_with_circular_frame.png");
 
 containerLeft.appendChild(heading);
 containerLeft.appendChild(description);
 
+containerRight.appendChild(image);
 containerRight.appendChild(headingRight);
 
 generator.append(containerLeft);
