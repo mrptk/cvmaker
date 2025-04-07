@@ -51,6 +51,10 @@ class HTMLGenerator {
             element.style[key] = value;
         }
 
+        if (newElement.attributes) for (const [key, value] of Object.entries(newElement.attributes)) {
+            element.setAttribute(key, value);
+        }
+
         return element;
     }
 

@@ -67,13 +67,59 @@ const image = generator.createElement({
     tag: 'img'
 });
 
-image.src = ("C:\\Users\\ptkma\\WebstormProjects\\cvmaker\\resources\\circular_image_with_circular_frame.png");
+const iconList = generator.createElement({
+    tag: 'div',
+    styles: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        boxSizing: 'border-box',
+        padding: '20px'
+    }
+});
+
+const iconItem = generator.createElement({
+    tag: 'div',
+    styles: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        boxSizing: 'border-box',
+        padding: '20px'
+    }
+});
+
+const githubIcon = generator.createElement({
+    tag: 'img',
+    styles: {
+        width: '10px',
+        height: '10px'
+    }
+});
+githubIcon.src = "C:\\Users\\ptkma\\WebstormProjects\\cvmaker\\assets\\icons\\github_icon.png"
+
+const githubAddress = generator.createElement({
+    tag: 'p',
+    content: 'https://github.com/',
+    styles: {
+        color: 'white',
+        fontFamily: 'Montserrat, sans-serif'
+    }
+});
+iconItem.appendChild(githubIcon);
+iconItem.appendChild(githubAddress);
+iconList.appendChild(iconItem);
+
+image.src = ("C:\\Users\\ptkma\\WebstormProjects\\cvmaker\\assets\\circular_image_with_circular_frame.png");
 
 containerLeft.appendChild(heading);
 containerLeft.appendChild(description);
 
 containerRight.appendChild(image);
 containerRight.appendChild(headingRight);
+containerRight.appendChild(iconList);
 
 generator.append(containerLeft);
 generator.append(containerRight);
